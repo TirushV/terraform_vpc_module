@@ -10,6 +10,22 @@ variable "three_public_private_subnets" {
   default = false
 }
 
+variable "container_port" {
+  default = 80
+}
+
+variable "health_check_path" {
+  default = "/"
+}
+
+variable "alb_tls_cert_arn" {
+  default = ""
+}
+
+variable "container_image" {
+  default = "nginx"
+}
+
 variable "enable_HA_for_NAT" {
   default = false
 }

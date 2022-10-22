@@ -1,5 +1,5 @@
-module "vpc" {
-  source                       = "./vpc"
+module "vpc_ecs" {
+  source                       = "./vpc_ecs"
   three_public_private_subnets = var.three_public_private_subnets
   enable_HA_for_NAT = var.enable_HA_for_NAT
   

@@ -35,8 +35,8 @@ resource "aws_eip" "nat_eip" {
 
 # EIP for NAT Gateway HA
 resource "aws_eip" "nat_eip_2" {
-  count          = var.enable_HA_for_NAT == true ? 1 : 0
-  vpc = true
+  count = var.enable_HA_for_NAT == true ? 1 : 0
+  vpc   = true
   depends_on = [
     aws_internet_gateway.igw
   ]
@@ -59,7 +59,7 @@ resource "aws_nat_gateway" "testing" {
 
 # NAT Gateway for HA
 resource "aws_nat_gateway" "testing2" {
-  count          = var.enable_HA_for_NAT == true ? 1 : 0
+  count         = var.enable_HA_for_NAT == true ? 1 : 0
   allocation_id = aws_eip.nat_eip_2[0].id
   subnet_id     = aws_subnet.Public_subnet_2.id
 
@@ -186,9 +186,9 @@ resource "aws_route_table" "private-route-table" {
 }
 
 resource "aws_route_table" "private-route-table_2" {
-  count          = var.enable_HA_for_NAT == true ? 1 : 0
+  count  = var.enable_HA_for_NAT == true ? 1 : 0
   vpc_id = aws_vpc.testing.id
-  
+
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_nat_gateway.testing2[0].id
