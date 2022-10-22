@@ -1,5 +1,5 @@
 resource "aws_lb" "main" {
-  name               = "ECSFargateALB"
+  name               = "${var.environment}-${var.name}-ALB"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb.id]
@@ -9,7 +9,7 @@ resource "aws_lb" "main" {
 }
 
 resource "aws_alb_target_group" "main" {
-  name        = "ECSFargateTG"
+  name        = "${var.environment}-${var.name}-TG"
   port        = 80
   protocol    = "HTTP"
   vpc_id      = aws_vpc.testing.id

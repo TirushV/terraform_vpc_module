@@ -6,6 +6,26 @@ variable "aws_region" {
   default = "ap-south-1"
 }
 
+variable "environment" {
+  default = "Dev"
+}
+
+variable "container_name" {
+  default = "Nginx"
+}
+
+variable "name" {
+  default = "ECSFargate"
+}
+
+variable "http_port" {
+  default = 80
+}
+
+variable "https_port" {
+  default = 443
+}
+
 variable "three_public_private_subnets" {
   default = false
 }

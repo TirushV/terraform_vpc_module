@@ -4,16 +4,16 @@ resource "aws_security_group" "alb" {
 
   ingress {
     protocol         = "tcp"
-    from_port        = 80
-    to_port          = 80
+    from_port        = var.http_port
+    to_port          = var.http_port
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
   }
 
   ingress {
     protocol         = "tcp"
-    from_port        = 443
-    to_port          = 443
+    from_port        = var.https_port
+    to_port          = var.https_port
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
   }

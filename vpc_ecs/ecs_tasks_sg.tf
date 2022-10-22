@@ -1,12 +1,12 @@
 resource "aws_security_group" "ecs_tasks" {
-  name   = "ECS-Fargate_Tasks"
+  name   = "${var.environment}-${var.name}-tasks"
   vpc_id = aws_vpc.testing.id
 
   ingress {
     protocol        = "tcp"
     from_port       = var.container_port
     to_port         = var.container_port
-    security_groups = [aws_lb.main.id]
+    security_groups = [aws_security_group.alb.id]
   }
 
   egress {

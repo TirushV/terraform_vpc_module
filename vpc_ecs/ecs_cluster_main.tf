@@ -1,9 +1,9 @@
 resource "aws_ecs_cluster" "main" {
-  name = "ECSFargateCluster"
+  name = "${var.environment}-${var.name}"
 }
 
 resource "aws_ecs_task_definition" "main" {
-  family                   = "test"
+  family                   = "${var.environment}-${var.name}-cluster"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   cpu                      = 256
@@ -16,10 +16,10 @@ resource "aws_ecs_task_definition" "main" {
     "essential": true,
     "image": "${var.container_image}:latest",
     "memory": 128,
-    "name": "nginx",
+    "name": "${var.container_name}",
     "portMappings": [
       {
-        "containerPort": 80
+        "containerPort": ${var.container_port}
       }
     ]
   }
