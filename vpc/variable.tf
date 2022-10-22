@@ -10,6 +10,10 @@ variable "three_public_private_subnets" {
   default = false
 }
 
+variable "enable_HA_for_NAT" {
+  default = false
+}
+
 variable "public_subnet_1_cidr" {
   default = "10.0.0.0/24"
 }
