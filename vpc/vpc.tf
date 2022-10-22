@@ -33,12 +33,36 @@ resource "aws_eip" "nat_eip" {
   }
 }
 
+# EIP for NAT Gateway HA
+resource "aws_eip" "nat_eip_2" {
+  vpc = true
+  depends_on = [
+    aws_internet_gateway.igw
+  ]
+  tags = {
+    Name = "NAT Gateway EIP 2"
+  }
+}
+
+# NAT Gateway
 resource "aws_nat_gateway" "testing" {
   allocation_id = aws_eip.nat_eip.id
   subnet_id     = aws_subnet.Public_subnet_1.id
 
   tags = {
     Name = "NAT Gateway"
+  }
+
+  depends_on = [aws_internet_gateway.igw]
+}
+
+# NAT Gateway for HA
+resource "aws_nat_gateway" "testing2" {
+  allocation_id = aws_eip.nat_eip_2.id
+  subnet_id     = aws_subnet.Public_subnet_2.id
+
+  tags = {
+    Name = "NAT Gateway 2"
   }
 
   depends_on = [aws_internet_gateway.igw]
