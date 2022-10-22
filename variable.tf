@@ -35,5 +35,5 @@ variable "three_public_private_subnets" {
 }
 
 variable "enable_HA_for_NAT" {
-  default false
+  default = false
 }
