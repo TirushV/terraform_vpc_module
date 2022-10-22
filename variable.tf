@@ -33,3 +33,7 @@ variable "private_subnet_3_cidr" {
 variable "three_public_private_subnets" {
   default = false
 }
+
+variable "enable_HA_for_NAT" {
+  default false
+}
