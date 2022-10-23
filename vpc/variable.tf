@@ -6,44 +6,8 @@ variable "aws_region" {
   default = "ap-south-1"
 }
 
-variable "environment" {
-  default = "Dev"
-}
-
-variable "container_name" {
-  default = "Nginx"
-}
-
-variable "name" {
-  default = "ECSFargate"
-}
-
-variable "http_port" {
-  default = 80
-}
-
-variable "https_port" {
-  default = 443
-}
-
 variable "three_public_private_subnets" {
   default = false
-}
-
-variable "container_port" {
-  default = 80
-}
-
-variable "health_check_path" {
-  default = "/"
-}
-
-variable "alb_tls_cert_arn" {
-  default = ""
-}
-
-variable "container_image" {
-  default = "nginx"
 }
 
 variable "enable_HA_for_NAT" {

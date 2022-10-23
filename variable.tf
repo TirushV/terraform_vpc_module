@@ -2,6 +2,18 @@ variable "vpc_cidr" {
   default = "10.0.0.0/16"
 }
 
+variable "vpc_id" {
+  default = ""
+}
+
+variable "private_subnets" {
+  default = ""
+}
+
+variable "public_subnets" {
+  default = ""
+}
+
 variable "aws_region" {
   default = "ap-south-1"
 }
@@ -47,11 +59,11 @@ variable "private_subnet_3_cidr" {
 }
 
 variable "three_public_private_subnets" {
-  default = false
+  default = true
 }
 
 variable "enable_HA_for_NAT" {
-  default = false
+  default = true
 }
 
 variable "container_port" {

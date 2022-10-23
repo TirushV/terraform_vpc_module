@@ -3,7 +3,7 @@ resource "aws_lb" "main" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb.id]
-  subnets            = [aws_subnet.Public_subnet_1.id, aws_subnet.Public_subnet_2.id]
+  subnets            = var.public_subnets
 
   enable_deletion_protection = false
 }
@@ -12,7 +12,7 @@ resource "aws_alb_target_group" "main" {
   name        = "${var.environment}-${var.name}-TG"
   port        = 80
   protocol    = "HTTP"
-  vpc_id      = aws_vpc.testing.id
+  vpc_id      = var.vpc_id
   target_type = "ip"
 
   health_check {

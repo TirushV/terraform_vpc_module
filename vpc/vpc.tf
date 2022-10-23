@@ -35,8 +35,8 @@ resource "aws_eip" "nat_eip" {
 
 # EIP for NAT Gateway HA
 resource "aws_eip" "nat_eip_2" {
-  count = var.enable_HA_for_NAT == true ? 1 : 0
-  vpc   = true
+  #count = var.enable_HA_for_NAT == true ? 1 : 0
+  vpc = true
   depends_on = [
     aws_internet_gateway.igw
   ]
@@ -59,8 +59,8 @@ resource "aws_nat_gateway" "testing" {
 
 # NAT Gateway for HA
 resource "aws_nat_gateway" "testing2" {
-  count         = var.enable_HA_for_NAT == true ? 1 : 0
-  allocation_id = aws_eip.nat_eip_2[0].id
+  #count         = var.enable_HA_for_NAT == true ? 1 : 0
+  allocation_id = aws_eip.nat_eip_2.id
   subnet_id     = aws_subnet.Public_subnet_2.id
 
   tags = {
@@ -94,7 +94,7 @@ resource "aws_subnet" "Public_subnet_2" {
 }
 
 resource "aws_subnet" "Public_subnet_3" {
-  count                   = var.three_public_private_subnets == true ? 1 : 0
+  #count                   = var.three_public_private_subnets == true ? 1 : 0
   vpc_id                  = aws_vpc.testing.id
   cidr_block              = var.public_subnet_3_cidr
   availability_zone       = data.aws_availability_zones.available.names[2]
@@ -131,8 +131,8 @@ resource "aws_route_table_association" "public-subnet-2-route-table-association"
 }
 
 resource "aws_route_table_association" "public-subnet-3-route-table-association" {
-  count          = var.three_public_private_subnets == true ? 1 : 0
-  subnet_id      = aws_subnet.Public_subnet_3[0].id
+  #count          = var.three_public_private_subnets == true ? 1 : 0
+  subnet_id      = aws_subnet.Public_subnet_3.id
   route_table_id = aws_route_table.public-route-table.id
 }
 
@@ -160,7 +160,7 @@ resource "aws_subnet" "Private_subnet_2" {
 }
 
 resource "aws_subnet" "Private_subnet_3" {
-  count                   = var.three_public_private_subnets == true ? 1 : 0
+  #count                   = var.three_public_private_subnets == true ? 1 : 0
   vpc_id                  = aws_vpc.testing.id
   cidr_block              = var.private_subnet_3_cidr
   availability_zone       = data.aws_availability_zones.available.names[2]
@@ -186,12 +186,12 @@ resource "aws_route_table" "private-route-table" {
 }
 
 resource "aws_route_table" "private-route-table_2" {
-  count  = var.enable_HA_for_NAT == true ? 1 : 0
+  #count  = var.enable_HA_for_NAT == true ? 1 : 0
   vpc_id = aws_vpc.testing.id
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_nat_gateway.testing2[0].id
+    gateway_id = aws_nat_gateway.testing2.id
   }
 
   tags = {
@@ -211,26 +211,26 @@ resource "aws_route_table_association" "private-subnet-2-route-table-association
 }
 
 resource "aws_route_table_association" "private-subnet-3-route-table-association" {
-  count          = var.three_public_private_subnets == true ? 1 : 0
-  subnet_id      = aws_subnet.Private_subnet_3[0].id
+  #count          = var.three_public_private_subnets == true ? 1 : 0
+  subnet_id      = aws_subnet.Private_subnet_3.id
   route_table_id = aws_route_table.private-route-table.id
 }
 
 # HA NAT Route Tables
 resource "aws_route_table_association" "private-subnet-1-route-table-association_2" {
-  count          = var.enable_HA_for_NAT == true ? 1 : 0
+  #count          = var.enable_HA_for_NAT == true ? 1 : 0
   subnet_id      = aws_subnet.Private_subnet_1.id
-  route_table_id = aws_route_table.private-route-table_2[0].id
+  route_table_id = aws_route_table.private-route-table_2.id
 }
 
 resource "aws_route_table_association" "private-subnet-2-route-table-association_2" {
-  count          = var.enable_HA_for_NAT == true ? 1 : 0
+  #count          = var.enable_HA_for_NAT == true ? 1 : 0
   subnet_id      = aws_subnet.Private_subnet_2.id
-  route_table_id = aws_route_table.private-route-table_2[0].id
+  route_table_id = aws_route_table.private-route-table_2.id
 }
 
 resource "aws_route_table_association" "private-subnet-3-route-table-association_2" {
-  count          = var.three_public_private_subnets && var.enable_HA_for_NAT == true ? 1 : 0
-  subnet_id      = aws_subnet.Private_subnet_3[0].id
-  route_table_id = aws_route_table.private-route-table_2[0].id
+  #count          = var.three_public_private_subnets && var.enable_HA_for_NAT == true ? 1 : 0
+  subnet_id      = aws_subnet.Private_subnet_3.id
+  route_table_id = aws_route_table.private-route-table_2.id
 }

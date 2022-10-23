@@ -1,6 +1,6 @@
 resource "aws_security_group" "alb" {
   name   = "ECS_Fargate_ALB"
-  vpc_id = aws_vpc.testing.id
+  vpc_id = var.vpc_id
 
   ingress {
     protocol         = "tcp"

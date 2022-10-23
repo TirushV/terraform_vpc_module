@@ -1,6 +1,6 @@
 resource "aws_security_group" "ecs_tasks" {
   name   = "${var.environment}-${var.name}-tasks"
-  vpc_id = aws_vpc.testing.id
+  vpc_id = var.vpc_id
 
   ingress {
     protocol        = "tcp"
