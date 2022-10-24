@@ -17,3 +17,23 @@ output "private_subnets" {
 output "igw_id" {
   value = aws_internet_gateway.igw.id
 }
+
+output "private_route_table" {
+  value = aws_route_table.private-route-table[*].arn
+}
+
+output "public_route_table" {
+  value = aws_route_table.public-route-table.arn
+}
+
+output "public_route_table_association" {
+  value = aws_route_table_association.public-subnets[*].id
+}
+
+output "private_route_table_association" {
+  value = aws_route_table_association.private-subnet-route-table-association[*].id
+}
+
+output "public_route_table_association_2" {
+  value = aws_route_table_association.private-subnet-route-table-association_2[*].id
+}

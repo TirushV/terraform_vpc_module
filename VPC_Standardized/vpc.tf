@@ -81,6 +81,7 @@ resource "aws_route_table_association" "public-subnets" {
   route_table_id = aws_route_table.public-route-table.id
 }
 
+# Private Subnets
 resource "aws_subnet" "Private_subnets" {
   count                   = var.public_private_subnets
   vpc_id                  = aws_vpc.testing.id
@@ -95,7 +96,7 @@ resource "aws_subnet" "Private_subnets" {
 
 # Private Route table
 resource "aws_route_table" "private-route-table" {
-  count = var.enable_HA_for_NAT == true ? 2 : 1
+  count  = var.enable_HA_for_NAT == true ? 2 : 1
   vpc_id = aws_vpc.testing.id
 
   route {
