@@ -1,5 +1,3 @@
 #!/bin/sh -e
 
 terraform fmt -recursive
-terraform init -backend=false && \
-    terraform validate
